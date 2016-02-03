@@ -136,6 +136,9 @@
       "use_local_security": true,
       "use_serial_console": false,
       "serial_tty": "ttyS0,115200n8",
+      "ssh" : {
+        "accept_env": "",
+      },
       "windows": {
         "admin_password": "crowbar"
       },
@@ -169,7 +172,7 @@
     "provisioner": {
       "crowbar-revision": 0,
       "crowbar-applied": false,
-      "schema-revision": 34,
+      "schema-revision": 35,
       "element_states": {
         "provisioner-bootdisk-finder": [ "hardware-installing" ],
         "provisioner-server": [ "readying", "ready", "applying" ],

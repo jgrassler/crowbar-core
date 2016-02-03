@@ -73,6 +73,13 @@
             "use_local_security": { "type": "bool", "required": true },
             "use_serial_console": { "type": "bool", "required": true },
             "serial_tty": { "type": "str",  "required": true },
+            "ssh": {
+               "type": "map",
+               "required": true,
+               "mapping": {
+                 "accept_env": { "type": "str", "required": true }
+               }
+            },
             "windows": {
               "type": "map",
               "required": true,
