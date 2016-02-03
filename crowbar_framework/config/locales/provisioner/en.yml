@@ -26,6 +26,9 @@ en:
         serial_console: 'Serial Console'
         use_serial_console: 'Enable Serial Console'
         serial_tty: 'Serial Console Device'
+        ssh:
+          accept_env: 'Environment Variables allowed by SSH daemon'
+          accept_env_hint: 'Space delimited list of environment variables the SSH daemon allows through using the AcceptEnv setting'
         windows:
           admin_password: 'Windows Administrator Password'
           admin_password_hint: 'This password is only set on initial installation of Windows Server and Hyper-V Server, and any subsequent changes here will not be propagated to the nodes.'
