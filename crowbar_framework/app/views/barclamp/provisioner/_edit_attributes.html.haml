@@ -11,6 +11,10 @@
     %span.help-block
       = t(".shell_prompt_hint")
 
+    = string_field %w(ssh accept_env)
+    %span.help-block
+      = t(".ssh.accept_env_hint")
+
     = password_field %w(windows admin_password)
     %span.help-block
       = t(".windows.admin_password_hint")
