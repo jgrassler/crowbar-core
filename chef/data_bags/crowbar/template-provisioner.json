@@ -137,7 +137,7 @@
       "use_serial_console": false,
       "serial_tty": "ttyS0,115200n8",
       "ssh" : {
-        "accept_env": "",
+        "accept_env": ""
       },
       "windows": {
         "admin_password": "crowbar"
