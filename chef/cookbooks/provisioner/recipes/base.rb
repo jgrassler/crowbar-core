@@ -118,6 +118,20 @@ if node.roles.include? "crowbar"
   end
 end
 
+if ( node[:provisioner][:ssh][:accept_env] == "" )
+  utils_line '^AcceptEnv:.*# DO NOT EDIT! Managed by chef: provisioner[:ssh][:accept_env]' do
+    action :remove
+    file '/etc/ssh/sshd_config'
+    notifies :restart, 'service[sshd]'
+  end
+else
+  utils_line "AcceptEnv #{node[:provisioner][:ssh][:accept_env]} } # DO NOT EDIT! Managed by chef: provisioner[:ssh][:accept_env]" do
+    action :add
+    file '/etc/ssh/sshd_config'
+    notifies :restart, 'service[sshd]'
+  end
+end
+
 bash "Disable Strict Host Key checking" do
   code "echo '    StrictHostKeyChecking no' >>/etc/ssh/ssh_config"
   not_if "grep -q 'StrictHostKeyChecking no' /etc/ssh/ssh_config"
