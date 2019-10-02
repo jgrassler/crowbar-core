@@ -1456,6 +1456,23 @@ module Api
         end
       end
 
+      def get_compute_remotes(virt)
+        remotes = []
+        ServiceObject.available_remotes.each do |cluster, role|
+          if virt == '*'
+            role_match = role.name.include?("nova-compute")
+          else
+            role_match = role.name.include?("nova-compute-#{virt}")
+          end
+
+          if role_match
+            remotes.concat(ServiceObject.expand_nodes_for_all([cluster])[0])
+          end
+        end
+
+        return remotes
+      end
+
       def prepare_remote_nodes
         # iterate over remote clusters
         ServiceObject.available_remotes.each do |cluster, role|
@@ -1477,7 +1494,8 @@ module Api
       # Prepare the compute nodes for upgrade by upgrading necessary packages
       def prepare_compute_nodes(virt)
         Rails.logger.info("Preparing #{virt} compute nodes for upgrade... ")
-        compute_nodes = ::Node.find("roles:nova-compute-#{virt}")
+
+        compute_nodes = ::Node.find("roles:nova-compute-#{virt}") + get_compute_remotes(virt)
         if compute_nodes.empty?
           Rails.logger.info("There are no compute nodes of #{virt} type.")
           return
