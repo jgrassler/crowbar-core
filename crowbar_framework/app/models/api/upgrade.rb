@@ -1682,14 +1682,12 @@ module Api
             timeouts[:prepare_repositories]
           )
           Rails.logger.info("Repositories prepared successfully.")
-          if upgrade_mode == :non_disruptive
-            execute_scripts_and_wait_for_finish(
-              compute_nodes,
-              "/usr/sbin/crowbar-pre-upgrade.sh",
-              timeouts[:pre_upgrade]
-            )
-            Rails.logger.info("Services on compute nodes upgraded and prepared.")
-          end
+          execute_scripts_and_wait_for_finish(
+            compute_nodes,
+            "/usr/sbin/crowbar-pre-upgrade.sh",
+            timeouts[:pre_upgrade]
+          )
+          Rails.logger.info("Services on compute nodes upgraded and prepared.")
         rescue StandardError => e
           raise_node_upgrade_error(
             "Error while preparing services on compute nodes. " + e.message
