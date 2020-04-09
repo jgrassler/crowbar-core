@@ -51,6 +51,9 @@ done
 # Apache was also stopped by crowbar-stop-nova-services.sh
 systemctl start apache2
 
+# Restart chef-client (stopped by crowbar-stop-nova-services.sh earlier)
+systemctl start chef-client
+
   <% if @remotes_present and @is_cluster_founder %>
 # Start nova-compute on remote nodes:
 for remote in $(crm resource list | awk '$1 ~ /^remote-/  {print $1}'); do

@@ -29,6 +29,10 @@ if [[ -f $UPGRADEDIR/crowbar-${SCRIPTNAME}-ok ]] ; then
 fi
 
 <% if @nova_controller %>
+
+# stop chef-client to prevent it from starting Nova services too early
+systemctl stop chef-client
+
 for service in conductor scheduler novncproxy serialproxy api; do
     fullname="openstack-nova-$service"
     if systemctl --quiet is-active $fullname 2>/dev/null ; then
